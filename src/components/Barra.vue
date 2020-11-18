@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <div class="progress">
+    <div class="progress" :class="animation">
       <div
-        class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+        class="progress-bar progress-bar-striped progress-bar-animated bg-worktime"
         role="progressbar"
-        :aria-valuenow="{ percentage }"
+        :aria-valuenow="{ percentual }"
         aria-valuemin="0"
         aria-valuemax="100"
-        :style="{ width: percentage + '%' }"
-      >{{percent}}%</div>
+        :style="{ width: percentual + '%' }"
+      >{{percentual}}%</div>
     </div>
   </div>
 </template>
@@ -17,29 +17,16 @@
 export default {
   data() {
     return {
-      isConclued: this.conclued,
-      percentage: this.percentual,
+      animation: 'bounce-enter',
     };
   },
   props: {
     id: String,
-    cor: String,
     percentual: Number,
     conclued: Boolean,
+    started: Boolean
   },
-  computed: {
-    percent() {
-      return this.percentage.toFixed();
-    }
-  },
-  created() {
-    var intval = setInterval(() => {
-      if(this.percentage < 100)
-        this.percentage += .01;
-      else
-        clearInterval(intval);
-    }, 10);
-  }
+  
 };
 </script>
 
@@ -51,5 +38,38 @@ export default {
   text-align: right;
   font-size: 8rem;
   color: #555;
+  width: 80%;
+}
+.bg-worktime{
+  background-color: rgb(219, 82, 77);
+}
+/* animações */
+.bounce-enter {
+  animation: bounce-in .5s;
+}
+.bounce-leave {
+  animation: bounce-out .5s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 </style>
