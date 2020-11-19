@@ -2,7 +2,8 @@
   <div class="container">
     <div class="progress" :class="animation">
       <div
-        class="progress-bar progress-bar-striped progress-bar-animated bg-worktime"
+        class="progress-bar progress-bar-striped progress-bar-animated"
+        :class="bgBarra"
         role="progressbar"
         :aria-valuenow="{ percentual }"
         aria-valuemin="0"
@@ -15,24 +16,35 @@
 
 <script>
 export default {
-  data() {
-    return {
-      animation: 'bounce-enter',
-    };
+  computed:{
+    animation: function () {
+      if (this.workTime) {
+        return 'bounce-enter';
+      }else{
+        return 'bounce-leave'
+      }
+    }, 
+    bgBarra: function () {
+      if (this.workTime) {
+        return 'bg-barra-enter';
+      }else{
+        return 'bg-barra-leave'
+      }
+    }
   },
   props: {
-    id: String,
     percentual: Number,
-    conclued: Boolean,
-    started: Boolean
+    workTime: Boolean
   },
   
 };
 </script>
 
 <style scoped>
+
 .progress{
     height: 50px !important;
+    /* opacity: 1; */
 }
 .container {
   text-align: right;
@@ -41,14 +53,24 @@ export default {
   width: 80%;
 }
 .bg-worktime{
-  background-color: rgb(219, 82, 77);
+  background-color: #db524d;
 }
 /* animações */
 .bounce-enter {
+  background-color: #db524d;
   animation: bounce-in .5s;
 }
 .bounce-leave {
+  background-color: #4ddb4d;
   animation: bounce-out .5s;
+}
+.bg-barra-enter{
+  background-color: #4ddb4d;
+  /* background-image: url("../../public/t2.png"); */
+}
+.bg-barra-leave{
+  background-color: #db524d;
+  /* background-image: url("../../public/t2.png"); */
 }
 @keyframes bounce-in {
   0% {

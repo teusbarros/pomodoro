@@ -2,16 +2,18 @@
   <div id="app">
     <Navbar></Navbar>
     <div class="barras">
-      <Barra :percentual="barTime" :conclued="false"></Barra>
+      <Barra :percentual="barTime" :workTime="workTime"></Barra>
     </div>
     <h1 class="time">{{ showMinutos }}:{{ showSegundos }}</h1>
-    <div>
+    <div class="botoes">
       <button class="btn btn-success" @click="iniciar">INICIAR</button>
       <button class="btn btn-danger" @click="parar" v-if="!stop">PAUSAR</button>
       <button class="btn btn-danger" @click="parar" v-else>CONTINUAR</button>
       <button class="btn btn-primary" @click="zerar">ZERAR</button>
       <button class="btn btn-warning" @click="work" v-if="!workTime">TRABALHO</button>
       <button class="btn btn-warning" @click="work" v-else >DESCANSO</button>
+    </div>
+    <div class="ajuda">
 
     </div>
   </div>
@@ -120,11 +122,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+  /* background-color: #ddd9ce; */
+  height: 100%;
 }
 .time {
   font-size: 150px;
-  margin-bottom: 100px;
+  margin-bottom: 25px;
 }
 .barras {
   margin-top: 100px;
@@ -132,5 +135,8 @@ export default {
 .btn {
   width: 150px;
   margin: 0 30px 0 30px;
+}
+.botoes{
+  padding-bottom: 190px;
 }
 </style>
