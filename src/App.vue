@@ -100,7 +100,7 @@ export default {
         this.setTime();
         this.stop = false;
         this.counting = true;
-        this.interval = setInterval(this.decreaseTime, 10);
+        this.interval = setInterval(this.decreaseTime, 1000);
     },
     parar: function () {
       this.stop = !this.stop;
