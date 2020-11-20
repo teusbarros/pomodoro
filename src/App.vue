@@ -9,7 +9,6 @@
       <Botao nome="INICIAR" :cor="bgCor" :acao="iniciar"></Botao>
       <Botao nome="PARAR" :cor="bgCor"  :acao="parar" v-if="!stop"></Botao>
       <Botao nome="CONTINUAR" :cor="bgCor"  :acao="parar" v-else></Botao>
-      <Botao nome="ZERAR" :cor="bgCor" :acao="zerar"></Botao>
       <Botao nome="TRABALHO" :cor="bgCor" :acao="work" v-if="!workTime"></Botao>
       <Botao nome="DESCANSO" :cor="bgCor" :acao="work" v-else></Botao>
     </div>
@@ -38,12 +37,12 @@ export default {
       minutos: 25,
       segundos: 0,
       stop: false,
-      workTime: false,
+      workTime: true,
       interval: '',
       counting: false,
-      iniciado: false
     };
   },
+
   computed: {
     showSegundos: function(){
       return this.segundos < 10 ? "0" + this.segundos: this.segundos;
@@ -75,9 +74,8 @@ export default {
             this.minutos--;
             this.segundos = 59;
           }else{
-            // this.workTime = !this.workTime;
-            // o tempo acabou! fazer algo
-            // todo: alternar tempo automaticamente
+            this.sirene();
+            this.work();
           }
         } else {
           this.segundos--;
@@ -98,12 +96,11 @@ export default {
       }
     },
     iniciar: function () {
-      // this.segundos--;
-      this.setTime();
-      this.stop = false;
-      this.counting = true;
-      this.iniciado = true;
-      this.interval = setInterval(this.decreaseTime, 1000);
+        clearInterval(this.interval);
+        this.setTime();
+        this.stop = false;
+        this.counting = true;
+        this.interval = setInterval(this.decreaseTime, 10);
     },
     parar: function () {
       this.stop = !this.stop;
@@ -113,10 +110,9 @@ export default {
       clearInterval(this.interval);
       this.setTime();
     },
-    zerar: function () {
-      this.workTime = true;
-      clearInterval(this.interval);
-      this.setTime();
+    sirene: function () {
+        var audio = new Audio(require('../public/beep.mp3'));
+        audio.play();
     }
   },
 };
@@ -137,12 +133,12 @@ export default {
   margin-bottom: 25px;
 }
 .barras {
-    width: 60%;
+    width: 55%;
     margin: auto;
 }
 
 .botoes{
-  padding-bottom: 190px;
+  padding-bottom: 220px;
 }
 .bg-on{
     border-color: #db524d;
