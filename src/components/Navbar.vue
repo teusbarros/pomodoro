@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-nav">
-      <a class="navbar-brand" href="#">POMODORO</a>
-    </nav>
+  <div id="nav">
+    <img src="../../public/pomodoro.png" alt="Pomodoro" v-if="workTime">
+    <img src="../../public/pomodoro1.png" alt="Pomodoro" v-else>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props:{
+    workTime: Boolean
+  }
+};
 </script>
 <style scoped>
-.bg-nav{
-    background-color: rgb(219, 82, 77);
+img{
+    height: 65px;
+    margin-top: 10px;
+}
+#nav{
+  margin-bottom: 3%;
+  padding: 2%;
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <Navbar :workTime="workTime"></Navbar>
     <div class="barras">
       <Barra :percentual="barTime" :workTime="workTime"></Barra>
     </div>
-    <h1 class="time">{{ showMinutos }}:{{ showSegundos }}</h1>
+    <h1 class="time" :class="bgCor">{{ showMinutos }}:{{ showSegundos }}</h1>
     <div class="botoes">
-      <button class="btn btn-success" @click="iniciar">INICIAR</button>
-      <button class="btn btn-danger" @click="parar" v-if="!stop">PAUSAR</button>
-      <button class="btn btn-danger" @click="parar" v-else>CONTINUAR</button>
-      <button class="btn btn-primary" @click="zerar">ZERAR</button>
-      <button class="btn btn-warning" @click="work" v-if="!workTime">TRABALHO</button>
-      <button class="btn btn-warning" @click="work" v-else >DESCANSO</button>
+      <Botao nome="INICIAR" :cor="bgCor" :acao="iniciar"></Botao>
+      <Botao nome="PARAR" :cor="bgCor"  :acao="parar" v-if="!stop"></Botao>
+      <Botao nome="CONTINUAR" :cor="bgCor"  :acao="parar" v-else></Botao>
+      <Botao nome="ZERAR" :cor="bgCor" :acao="zerar"></Botao>
+      <Botao nome="TRABALHO" :cor="bgCor" :acao="work" v-if="!workTime"></Botao>
+      <Botao nome="DESCANSO" :cor="bgCor" :acao="work" v-else></Botao>
     </div>
     <div class="ajuda">
 
@@ -22,12 +22,14 @@
 <script>
 import Barra from "./components/Barra.vue";
 import Navbar from "./components/Navbar.vue";
+import Botao from "./components/Botao.vue";
 
 export default {
   name: "App",
   components: {
     Barra,
     Navbar,
+    Botao
   },
   data() {
     return {
@@ -38,7 +40,8 @@ export default {
       stop: false,
       workTime: false,
       interval: '',
-      counting: false
+      counting: false,
+      iniciado: false
     };
   },
   computed: {
@@ -59,6 +62,9 @@ export default {
       }else{
         return 100 - (complete/(this.restMinutes*60) * 100).toFixed();
       }
+    },
+    bgCor:function () {
+        return this.workTime ? "bg-on": "bg-off";
     }
   },
   methods: {
@@ -96,6 +102,7 @@ export default {
       this.setTime();
       this.stop = false;
       this.counting = true;
+      this.iniciado = true;
       this.interval = setInterval(this.decreaseTime, 1000);
     },
     parar: function () {
@@ -122,7 +129,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* background-color: #ddd9ce; */
+  background-color: #e2e2e2;
   height: 100%;
 }
 .time {
@@ -130,13 +137,19 @@ export default {
   margin-bottom: 25px;
 }
 .barras {
-  margin-top: 100px;
+    width: 60%;
+    margin: auto;
 }
-.btn {
-  width: 150px;
-  margin: 0 30px 0 30px;
-}
+
 .botoes{
   padding-bottom: 190px;
+}
+.bg-on{
+    border-color: #db524d;
+    color: #db524d;
+}
+.bg-off{
+    border-color: #000;
+    color: #000;
 }
 </style>
