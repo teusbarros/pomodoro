@@ -1,5 +1,5 @@
-![Pomodoro](http://github.com/teusbarros/pomodoro/public/po1.PNG)
-![Pomodoro](http://github.com/teusbarros/pomodoro/public/po2.PNG)
+![Pomodoro](public/po1.PNG?raw=true)
+![Pomodoro](public/po2.PNG?raw=true)
 # pomodoro
 A Vue.js Project.
 
